@@ -1,13 +1,22 @@
-package com.example.demo;
+package com.example.demo.model;
 
+import jakarta.persistence.*;
+
+
+@Entity
 public class Book {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String title;
     private String author;
+
+    @Column(name = "`year`")
     private int year;
 
-    public Book(){
-        // SpringBoot反序列化JSON时需要无参构造函数
-    }
+    public Book(){}
 
     public Book(String title, String author, int year){
         this.title = title;
@@ -15,7 +24,14 @@ public class Book {
         this.year = year;
     }
 
-    // Getter和Setter方法
+    public Long getId(){
+        return id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
+    }
+
     public String getTitle(){
         return title;
     }
@@ -40,9 +56,4 @@ public class Book {
         this.year = year;
     }
 
-    // 用于显示的字符串
-    @Override
-    public String toString(){
-        return "\"" + title + "\" by " + author + " ( " + year + " ) ";
-    }
 }
